@@ -27,6 +27,8 @@ namespace RealTime
 
             services.AddDbContext<RealTimeContext>(options =>
             options.UseInMemoryDatabase("hodor"));
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +51,13 @@ namespace RealTime
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=MyWork}/{action=Index}/{id?}");
+            });
+
+
+
+            app.UseSignalR(builder =>
+            {
+                builder.MapHub<SignalR.SignalR_POC>("signalR_Poc");
             });
         }
     }

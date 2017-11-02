@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RealTime.Models;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace RealTime.Controllers
 {
@@ -16,7 +17,7 @@ namespace RealTime.Controllers
         public MyWorkController(RealTimeContext context)
         {
 
-           
+
 
 
             _context = context;
@@ -59,6 +60,15 @@ namespace RealTime.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] MyModel myModel)
         {
+
+
+            var connection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:49791/signalR_Poc")
+        .Build();
+            await connection.StartAsync();
+
+            await connection.InvokeAsync("send", "from controller");
+
             if (ModelState.IsValid)
             {
                 _context.Add(myModel);
