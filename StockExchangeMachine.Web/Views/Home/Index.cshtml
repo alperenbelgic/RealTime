@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>
+
+<script src="~/dist/vendor.js" asp-append-version="true"></script>
+@section scripts {
+    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+
+    <script src="~/js/signalr-client-1.0.0-alpha2-final.min.js"></script>
+    <script>
+
+        var connection = new signalR.HubConnection('/TheHub');
+
+        connection.on('UpdatePrice', function (data) {
+
+            console.log(data);
+        });
+
+        connection.on('TransactionDone', function (data) {
+
+            console.log(data);
+        });
+
+        connection.start()
+            .then(alert('connection started'));
+
+        //function send() {
+        //    var value = document.getElementById('inp').value;
+        //    connection.invoke('send', value);
+        //}
+
+    </script>
+
+
+
+}

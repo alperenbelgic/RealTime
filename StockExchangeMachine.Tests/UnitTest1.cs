@@ -12,6 +12,8 @@ namespace StockExchangeMachine.Tests
         [TestMethod]
         public void TestMethod1()
         {
+            System.Diagnostics.Trace.WriteLine("funk!");
+
             var stockProduct = new StockProduct() { StockProductCode = "google" };
 
             var transactions = new List<Transaction>();
@@ -20,6 +22,10 @@ namespace StockExchangeMachine.Tests
             {
                 transactions.Add(o as Transaction);
             };
+
+            
+            StockProductObservables.GetTransactions(stockProduct);
+            StockProductObservables.GetPrices(stockProduct);
 
             stockProduct.Offer(100, 5, "seller 1");
             stockProduct.Bid(40, 6, "buyer 1");
