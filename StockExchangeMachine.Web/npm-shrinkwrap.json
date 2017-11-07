@@ -1,5 +1,5 @@
 {
-  "name": "StockExchangeMachine_Web",
+  "name": "StockExchangeMachineWeb",
   "version": "0.0.0",
   "dependencies": {
     "@angular/animations": {
