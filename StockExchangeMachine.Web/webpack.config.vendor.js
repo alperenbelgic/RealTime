@@ -69,7 +69,7 @@ module.exports = (env) => {
         ].concat(isDevBuild ? [] : [
             new webpack.optimize.UglifyJsPlugin()
         ])
-    });
+    }); 
 
     const serverBundleConfig = merge(sharedConfig, {
         target: 'node',

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockExchangeMachine", "Sto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockExchangeMachine.Tests", "StockExchangeMachine.Tests\StockExchangeMachine.Tests.csproj", "{71828E34-4718-48CF-8B8F-A6969D1375E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchangeMachine.Web", "StockExchangeMachine.Web\StockExchangeMachine.Web.csproj", "{EAA547D1-D4EC-4171-98E9-C98DDEFE6E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockExchangeMachine.Web", "StockExchangeMachine.Web\StockExchangeMachine.Web.csproj", "{EAA547D1-D4EC-4171-98E9-C98DDEFE6E36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,7 +18,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A069B097-7331-4C04-8CA7-093410950EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A069B097-7331-4C04-8CA7-093410950EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A069B097-7331-4C04-8CA7-093410950EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A069B097-7331-4C04-8CA7-093410950EFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6236678-47C2-45FD-B41D-25EF88EB5BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
