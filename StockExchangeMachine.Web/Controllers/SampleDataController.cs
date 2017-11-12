@@ -20,12 +20,12 @@ namespace StockExchangeMachine_Web.Controllers
         {
             //await Task.Delay(1000);
 
-            var connection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:55496/TheHub")
-    .Build();
-            await connection.StartAsync();
+    //        var connection = new HubConnectionBuilder()
+    //        .WithUrl("http://localhost:55496/TheHub")
+    //.Build();
+    //        await connection.StartAsync();
 
-            await connection.InvokeAsync("send", DateTime.Now.ToLongTimeString());
+    //        await connection.InvokeAsync("send", DateTime.Now.ToLongTimeString());
 
             //await connection.DisposeAsync();
 

@@ -17,12 +17,13 @@ namespace StockExchangeMachine.Web.Models
             await connection.StartAsync();
 
 
-            StockProductObservables.GetTransactions(TempStockProduct).Subscribe(
-    transaction =>
-    {
-        connection.InvokeAsync("TransactionDone", transaction.ToString());
-    }
-    );
+
+            //        StockProductObservables.GetTransactions(TempStockProduct).Subscribe(
+            //transaction =>
+            //{
+            //    connection.InvokeAsync("TransactionDone", transaction.ToString());
+            //}
+            //);
 
             StockProductObservables.GetPrices(TempStockProduct).Subscribe(
                  price =>
@@ -47,5 +48,39 @@ namespace StockExchangeMachine.Web.Models
                 return _TempStockProduct;
             }
         }
+
+        public static StockExchangeMachineModel StockExchangeMachineModel
+        {
+            get
+            {
+                if (_StockExchangeMachineModel == null)
+                {
+                    _StockExchangeMachineModel = new StockExchangeMachineModel();
+                    InitialiseStocks();
+                }
+                return _StockExchangeMachineModel;
+            }
+        }
+
+        private static void InitialiseStocks()
+        {
+            _StockExchangeMachineModel.AddStockProduct(
+                new StockProduct()
+                {
+                    StockProductCode = "RBS.L"
+                });
+
+            _StockExchangeMachineModel.AddStockProduct(
+                new StockProduct()
+                {
+                    StockProductCode = "TSCO.L"
+                });
+
+
+
+        }
+
+        private static StockExchangeMachineModel _StockExchangeMachineModel = null;
+
     }
 }

@@ -7,7 +7,19 @@ namespace StockExchangeMachine
 {
     public class StockProduct
     {
+        public StockProduct()
+        {
+            this.TransactionOccured += StockProduct_TransactionOccured;
+        }
+
+        private void StockProduct_TransactionOccured(object sender, EventArgs e)
+        {
+            this.Price = (sender as Transaction).Price;
+        }
+
         public string StockProductCode { get; set; }
+
+        public decimal Price { get; set; }
 
         public void Bid(int count, decimal price, string customer)
         {

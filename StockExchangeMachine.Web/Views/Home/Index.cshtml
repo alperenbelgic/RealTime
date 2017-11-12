@@ -11,20 +11,49 @@
     <script src="~/js/signalr-client-1.0.0-alpha2-final.min.js"></script>
     <script>
 
-        var connection = new signalR.HubConnection('/TheHub');
+        //var connection = new signalR.HubConnection('/TheHub');
 
-        connection.on('UpdatePrice', function (data) {
+        //connection.on('UpdatePrice', function (data) {
 
-            console.log(data);
-        });
+        //    console.log(data);
+        //});
 
-        connection.on('TransactionDone', function (data) {
+        //connection.stream("StreamStocks").subscribe({
+        //    next: function (data) { 
 
-            console.log(data);
-        });
+        //        console.log("I am a stream: " + data);
 
-        connection.start()
-            .then(alert('connection started'));
+        //    },
+        //    error: function (err) {
+        //        logger.log(err);
+        //    }
+        //});
+
+        //connection.on('TransactionDone', function (data) {
+
+        //    console.log(data);
+        //});
+
+        //connection.start()
+        //    .then(function () {
+        //        alert('connection started');
+
+        //        connection.stream("StreamTransactions").subscribe({
+        //            next: function (data) {
+
+        //                console.log("I am a stream: " + JSON.stringify( data));
+
+        //            },
+        //            error: function (err) {
+        //                //logger.log(err);
+        //            }
+        //        });
+
+        //    }
+
+
+
+        //    );
 
         //function send() {
         //    var value = document.getElementById('inp').value;

@@ -75,5 +75,24 @@ namespace StockExchangeMachine.Tests
 
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void TestRandomPricing()
+        {
+            var stockProduct = new StockProduct() { StockProductCode = "google" };
+            stockProduct.Price = 100;
+
+            for (int i = 0; i < 1000; i++)
+            {
+                var rog = new RandomOrderGenerator(stockProduct);
+                rog.GenerateOrder();
+
+                System.Diagnostics.Trace.WriteLine(stockProduct.Price);
+
+
+            }
+
+
+        }
     }
 }

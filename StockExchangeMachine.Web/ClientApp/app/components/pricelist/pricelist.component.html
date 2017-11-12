@@ -2,6 +2,17 @@
 
 <p>This is a simple example of an Angular component.</p>
 
-<p>Current count: <strong>{{ currentCount }}</strong></p>
+<button (click)="startStream()">Start Stream</button>
+<button (click)="stopStream()">Stop Stream</button>
 
-<button (click)="incrementCounter()">Increment</button>
+<div *ngFor="let transacion of transactions">
+
+    <h3>Transaction Info</h3>
+    <h4>Seller: {{transacion.seller}}</h4>
+    <h4>Buyer: {{transacion.buyer}}</h4>
+    <h4>Unit Count: {{transacion.count}}</h4>
+    <h4>Unit Price: {{transacion.price}}</h4>
+
+</div>
+
+
