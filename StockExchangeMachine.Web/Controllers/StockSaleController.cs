@@ -36,6 +36,17 @@ namespace StockExchangeMachine.Web.Controllers
             return View("Create", stockSaleViewModel);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StartProducingOrders([Bind("Id,Count,Price")] StockSaleViewModel stockSaleViewModel)
+        {
+            TempStatic.StartGeneratingOrders();
+            return View("Create", stockSaleViewModel);
+
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Sell([Bind("Id,Count,Price")] StockSaleViewModel stockSaleViewModel)

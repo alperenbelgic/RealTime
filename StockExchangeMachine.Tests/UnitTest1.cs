@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace StockExchangeMachine.Tests
 {
@@ -23,7 +25,7 @@ namespace StockExchangeMachine.Tests
                 transactions.Add(o as Transaction);
             };
 
-            
+
             StockProductObservables.GetTransactions(stockProduct);
             StockProductObservables.GetPrices(stockProduct);
 
@@ -82,17 +84,58 @@ namespace StockExchangeMachine.Tests
             var stockProduct = new StockProduct() { StockProductCode = "google" };
             stockProduct.Price = 100;
 
-            for (int i = 0; i < 1000; i++)
+            List<decimal> list = new List<decimal>();
+
+            for (int i = 0; i < 100000; i++)
             {
                 var rog = new RandomOrderGenerator(stockProduct);
                 rog.GenerateOrder();
 
-                System.Diagnostics.Trace.WriteLine(stockProduct.Price);
+                //System.Diagnostics.Trace.WriteLine(stockProduct.Price);
+
+                list.Add(stockProduct.Price);
 
 
             }
 
+            Trace.WriteLine("average " + list.Average());
+
+
+            //System.Reactive.Linq.Observable.Timer()
+
+            var a = new List<int>() { 1 };
+
 
         }
+
+        [TestMethod]
+        public void TestRandomPricingRandomInterval()
+        {
+            var stockProduct = new StockProduct() { StockProductCode = "google" };
+            stockProduct.Price = 100;
+
+            DateTime d = DateTime.Now;
+
+            RandomOrderInterval.GetObservable()
+                .Subscribe(
+                onNext: u =>
+                {
+                    var rog = new RandomOrderGenerator(stockProduct);
+
+                    rog.GenerateOrder();
+
+                    var ts = DateTime.Now - d;
+
+                    System.Diagnostics.Trace.WriteLine(ts);
+                    System.Diagnostics.Trace.WriteLine(stockProduct.Price);
+                    System.Diagnostics.Trace.WriteLine(" ");
+
+                }
+                );
+
+            Task.Delay(100000);
+
+        }
+
     }
 }

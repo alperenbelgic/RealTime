@@ -19,6 +19,7 @@ namespace StockExchangeMachine
 
         public string StockProductCode { get; set; }
 
+
         public decimal Price { get; set; }
 
         public void Bid(int count, decimal price, string customer)

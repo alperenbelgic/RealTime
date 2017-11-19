@@ -18,36 +18,24 @@ namespace StockExchangeMachine
                 {
                     return e.Sender as Transaction;
                 });
-
-
-            o.Subscribe(e =>
-            {
-                System.Diagnostics.Trace.WriteLine(e.ToString());
-            }
-            );
             return o;
         }
 
-        public static IObservable<Price> GetPrices(StockProduct stockProduct)
+        public static IObservable<PriceModel> GetPrices(StockProduct stockProduct)
         {
             var o =
             GetTransactions(stockProduct)
             .DistinctUntilChanged(t => t.Price)
             .Select(t =>
             {
-                return new Price
+                return new PriceModel
                 {
                     StockProductCode = t.StockProductCode,
-                    PriceValue = t.Price,
+                    Price = t.Price,
                     UpdateDate = t.TransactionTime
                 };
             });
 
-            o.Subscribe(e =>
-            {
-                System.Diagnostics.Trace.WriteLine(e.PriceValue);
-            }
-         );
             return o;
 
         }

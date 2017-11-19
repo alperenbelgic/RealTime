@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -18,7 +20,9 @@ namespace StockExchangeMachine
         {
             decimal price = this.Product.Price;
 
-            decimal nextOrderPrice = price * (100 + (CryptoRandom.NextDecimal() * 4 - 2)) / 100;
+            int intervalPercentage = 1;
+
+            decimal nextOrderPrice = price * (100 + (CryptoRandom.NextDecimal() * intervalPercentage * 2 - intervalPercentage)) / 100;
 
             bool isNextOrderBid =
                 CryptoRandom.NextBool();
@@ -43,7 +47,19 @@ namespace StockExchangeMachine
             }
         }
 
-        public StockProduct Product { get; }
+        public IDisposable StartGeneratingOrders()
+        {
+            return 
+            RandomOrderInterval
+                .GetObservable()
+                .Subscribe(a =>
+                {
+                    GenerateOrder();
+                });
+            ;
+        }
+
+        StockProduct Product { get; }
     }
 
     class CryptoRandom : RandomNumberGenerator
@@ -109,5 +125,39 @@ namespace StockExchangeMachine
         {
             return Next(0, maxValue);
         }
+    }
+
+    public class RandomOrderInterval
+    {
+        static CryptoRandom random = new CryptoRandom();
+
+        public static IObservable<Unit> GetObservable()
+        {
+
+            Func<Unit, TimeSpan> nextTriggerTimerCalculator =
+                (Unit u) =>
+                {
+                    var nextMilliseconds = random.Next(100, 300);
+                    return TimeSpan.FromMilliseconds(nextMilliseconds);
+                };
+
+            var unit = new Unit();
+
+            var observable =
+            Observable.Generate<Unit, Unit>(
+            unit,
+            (Unit u) => { return true; },
+            (previous) => { return unit; },
+            (state) => { return unit; },
+             nextTriggerTimerCalculator)
+             ;
+
+            return observable;
+
+        }
+
+
+
+
     }
 }

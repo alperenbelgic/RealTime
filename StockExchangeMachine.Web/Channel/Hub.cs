@@ -8,50 +8,35 @@ namespace StockExchangeMachine.Web.Channel
 {
     public class TheHub : Hub
     {
-        public Task Send(string message)
-        {
-            return Clients.All.InvokeAsync("Send", message);
-        }
-
-
-
-        public Task RegisterForPriceChange(string productCode)
-        {
-            return
-            this.Groups.AddAsync(
-            this.Context.ConnectionId,
-            "product$" + productCode);
-        }
-
         public IObservable<Transaction> StreamTransactions(string param)
         {
+            if (param == "x")
+            {
+                return StockProductObservables.GetTransactions(
+           Models.TempStatic.StockExchangeMachineModel.GetStockProduct("VOD"));
+            }
+
             return StockProductObservables.GetTransactions(
             Models.TempStatic.TempStockProduct);
         }
 
-        public IObservable<Price> StreamPrices(string stockProductCode)
+        public IObservable<PriceModel> StreamPrices(string stockProductCode)
         {
-            var stockProduct = Models.TempStatic.StockExchangeMachineModel.GetStockProduct(stockProductCode);
+            try
+            {
+                var stockProduct = Models.TempStatic.StockExchangeMachineModel.GetStockProduct(stockProductCode);
 
-            return StockProductObservables.GetPrices(stockProduct);
+                return StockProductObservables.GetPrices(stockProduct);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        //public Task UpdatePrice(string productCode, decimal price)
-        //{
-        //    //return Clients.All.InvokeAsync("UpdatePrice", $"price changed {price}");
-        //    return Clients.Group("product$"+ productCode).InvokeAsync("UpdatePrice", $"price changed {price}");
-        //}
-
-        public Task UpdatePrice(decimal price)
+        public override Task OnDisconnectedAsync(Exception exception)
         {
-            return Clients.All.InvokeAsync("UpdatePrice", $"price changed {price}");
-        }
-
-
-
-        public Task TransactionDone(string transactionString)
-        {
-            return Clients.All.InvokeAsync("TransactionDone", $" Trans: {transactionString} ");
+            return base.OnDisconnectedAsync(exception);
         }
 
     }

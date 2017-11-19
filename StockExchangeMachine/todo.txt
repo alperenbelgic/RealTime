@@ -1,3 +1,10 @@
-﻿- product order generation automatization
+﻿done
+- product order generation automatization
 - use automatization and call order/bid services
 - in ui, bind different products and show live prices
+
+
+todo
+- implement error methods on subscriptions
+- build appveyor problem
+- deployment automatisation

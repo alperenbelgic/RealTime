@@ -7,7 +7,7 @@ namespace StockExchangeMachine
 {
     public class StockExchangeMachineModel
     {
-        private List<StockProduct> StockProducts = new List<StockProduct>();
+        public List<StockProduct> StockProducts = new List<StockProduct>();
 
         public void AddStockProduct(StockProduct stockProduct)
         {
