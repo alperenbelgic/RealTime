@@ -4,10 +4,11 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace StockExchangeMachine
 {
-    public class RandomOrderGenerator
+    public class RandomOrderGenerator : Profilable
     {
         public RandomOrderGenerator(StockProduct product)
         {
@@ -18,11 +19,13 @@ namespace StockExchangeMachine
 
         public void GenerateOrder()
         {
-            decimal price = this.Product.Price;
+            decimal nextBasePrice = GetNextBasePrice();
 
-            int intervalPercentage = 1;
+            decimal intervalPercentage = 1.5m;
 
-            decimal nextOrderPrice = price * (100 + (CryptoRandom.NextDecimal() * intervalPercentage * 2 - intervalPercentage)) / 100;
+            decimal nextOrderPrice = nextBasePrice * (100 + (CryptoRandom.NextDecimal() * intervalPercentage * 2 - intervalPercentage)) / 100;
+
+            nextOrderPrice = ReduceToFourSignificantNumber(nextOrderPrice);
 
             bool isNextOrderBid =
                 CryptoRandom.NextBool();
@@ -47,9 +50,49 @@ namespace StockExchangeMachine
             }
         }
 
+        private decimal GetNextBasePrice()
+        {
+            if (this.Product.LowestOfferPrice.HasValue && this.Product.HighestBidPrice.HasValue)
+            {
+                return (this.Product.LowestOfferPrice.Value + this.Product.HighestBidPrice.Value) / 2;
+            }
+            else
+            {
+                return this.Product.Price;
+            }
+        }
+
+        public static decimal ReduceToFourSignificantNumber(decimal number)
+        {
+            number = decimal.Round(number, 2);
+
+            var bits = decimal.GetBits(number);
+
+            int lowest = bits[0];
+            int middle = bits[1];
+            int highest = bits[2];
+            int exponent = (bits[3] & 0x00FF0000) >> 16;
+
+            string textRepresentation = number.ToString().Replace(",", "").Replace(".", "");
+
+            if (textRepresentation.Length > 4)
+            {
+                textRepresentation =
+                    textRepresentation.Substring(0, 4) + new string('0', textRepresentation.Length - 4);
+            }
+
+            var valueWithoutDecimalSeperator = decimal.Parse(textRepresentation);
+
+            var value = decimal.Divide(valueWithoutDecimalSeperator, Convert.ToDecimal(Math.Pow(10, exponent)));
+
+            value = decimal.Round(value, 2);
+
+            return value;
+        }
+
         public IDisposable StartGeneratingOrders()
         {
-            return 
+            return
             RandomOrderInterval
                 .GetObservable()
                 .Subscribe(a =>
@@ -127,12 +170,14 @@ namespace StockExchangeMachine
         }
     }
 
-    public class RandomOrderInterval
+    public class RandomOrderInterval : Profilable
     {
         static CryptoRandom random = new CryptoRandom();
 
         public static IObservable<Unit> GetObservable()
         {
+
+
 
             Func<Unit, TimeSpan> nextTriggerTimerCalculator =
                 (Unit u) =>
@@ -155,9 +200,5 @@ namespace StockExchangeMachine
             return observable;
 
         }
-
-
-
-
     }
 }

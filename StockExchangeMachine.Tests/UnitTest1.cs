@@ -137,5 +137,69 @@ namespace StockExchangeMachine.Tests
 
         }
 
+        [TestMethod]
+        public void Test_ReduceToFourSignificantNumber()
+        {
+            var value = RandomOrderGenerator.ReduceToFourSignificantNumber(1231242.3454435m);
+
+            Assert.AreEqual(1231000m, value);
+
+            value = RandomOrderGenerator.ReduceToFourSignificantNumber(2.1m);
+
+            Assert.AreEqual(2.1m, value);
+
+            value = RandomOrderGenerator.ReduceToFourSignificantNumber(4.341m);
+
+            Assert.AreEqual(4.34m, value);
+
+            value = RandomOrderGenerator.ReduceToFourSignificantNumber(123.388m);
+
+            Assert.AreEqual(123.30m, value);
+
+
+
+        }
+
+        [TestMethod]
+        public void Test_WhenPriceIntervalChanged()
+        {
+            PriceInterval latestValue = new PriceInterval();
+            var product = new StockProduct();
+            product.Price = 100;
+
+            product.WhenPriceInformationChanged()
+                .Subscribe(val =>
+                {
+                    latestValue = val;
+                });
+
+
+            product.Bid(100, 90);
+            product.Offer(100, 110);
+
+            Assert.AreEqual(110, latestValue.LowestOffer);
+            Assert.AreEqual(90, latestValue.HighestBid);
+
+
+            product.Bid(50, 100);
+
+            Assert.AreEqual(110, latestValue.LowestOffer);
+            Assert.AreEqual(100, latestValue.HighestBid);
+
+
+            product.Offer(100, 120);
+
+            Assert.AreEqual(110, latestValue.LowestOffer);
+            Assert.AreEqual(100, latestValue.HighestBid);
+
+            product.Bid(100, 110);
+
+
+            Assert.AreEqual(120, latestValue.LowestOffer);
+            Assert.AreEqual(100, latestValue.HighestBid);
+
+
+        }
+
     }
 }

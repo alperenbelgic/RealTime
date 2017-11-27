@@ -9,8 +9,9 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { PricelistComponent } from './components/pricelist/pricelist.component';
+import { ProductlistComponent } from './components/productlist/productlist.component';
 import { StockpriceComponent } from './components/stockprice/stockprice.component';
+import { TwoColumnContentComponent } from './components/two-column-content/twocolumncontent.component';
 
 @NgModule({
     declarations: [
@@ -19,8 +20,9 @@ import { StockpriceComponent } from './components/stockprice/stockprice.componen
         CounterComponent,
         FetchDataComponent,
         HomeComponent, 
-        PricelistComponent,
-        StockpriceComponent
+        ProductlistComponent,
+        StockpriceComponent,
+        TwoColumnContentComponent
     ],
     imports: [
         CommonModule,
@@ -31,7 +33,8 @@ import { StockpriceComponent } from './components/stockprice/stockprice.componen
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'pricelist', component: PricelistComponent },
+            { path: 'pricelist', component: ProductlistComponent },
+            { path: 'stock-trading', component: TwoColumnContentComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

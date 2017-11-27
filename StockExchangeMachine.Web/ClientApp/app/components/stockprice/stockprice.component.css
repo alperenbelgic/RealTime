@@ -1,0 +1,44 @@
+/*.price {
+
+}*/
+
+.product-name {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+.order-button {
+    float: left;
+}
+
+.price-amount {
+    text-align: right;
+}
+
+.product-price {
+    text-align: right;
+}
+
+.stock-price {
+    border-bottom-color: gainsboro;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-color: beige;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+.btn {
+    border-radius: 0px;
+    padding: 0px;
+    margin-top: 10px;
+    height: 24px;
+    margin-bottom: 10px;
+    width: 50px;
+    background-color: slategray;
+}
+
+.price {
+    margin-top: 11px;
+}

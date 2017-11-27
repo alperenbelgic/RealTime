@@ -5,6 +5,16 @@
 
 
 todo
+- trading implementation planning
+	- add icons for up/down stock with colors
+	- search and list tracking products
+	- show graph of selected product
+	- implement buy/sell options
+	- show lowest/highest prices in detail
+	- show change percentage
+	- order by percentage
 - implement error methods on subscriptions
 - build appveyor problem
 - deployment automatisation
+- mobile friendly ui
+- admin. in asp.net core with different ui

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace StockExchangeMachine
 {
-    public class StockExchangeMachineModel
+    public class StockExchangeMachineModel : Profilable
     {
         public List<StockProduct> StockProducts = new List<StockProduct>();
 

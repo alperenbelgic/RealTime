@@ -34,6 +34,18 @@ namespace StockExchangeMachine.Web.Channel
             }
         }
 
+        public IObservable<PriceInterval> StreamPriceInformation(string stockProductCode)
+        {
+            var stockProduct = Models.TempStatic.StockExchangeMachineModel.GetStockProduct(stockProductCode);
+
+            if (stockProduct == null)
+            {
+                throw new Exception($"There is no stock product with the code: {stockProductCode}");
+            }
+
+            return stockProduct.WhenPriceInformationChanged();
+        }
+
         public override Task OnDisconnectedAsync(Exception exception)
         {
             return base.OnDisconnectedAsync(exception);

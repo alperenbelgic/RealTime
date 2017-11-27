@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace StockExchangeMachine
 {
-    public class Order
+    public class Order : Profilable
     {
         public int Count { get; internal set; }
         public int RemainingCount { get { return Count - Transactions.Sum(t => t.Count); } }
@@ -32,7 +32,7 @@ namespace StockExchangeMachine
         public event EventHandler OrderTransactionsCompleted;
     }
 
-    public enum OrderType
+    public enum OrderType 
     {
         Bid,
         Offer

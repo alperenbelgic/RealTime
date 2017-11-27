@@ -7,13 +7,20 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]="['/home']">StockExchangeMachine_Web</a>
+            <a class='navbar-brand' [routerLink]="['/home']">Stock Exchange Trading Machine</a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
+
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/home']">
+                    <a [routerLink]="['/stock-trading']">
+                        <span class='glyphicon glyphicon-th-list'></span> Stock Trading
+                    </a>
+                </li>
+
+                <li [routerLinkActive]="['link-active']">
+                    <a  href="/stocksale/operate" >
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
                 </li>
@@ -34,7 +41,23 @@
                     </a>
                 </li>
 
+
+             
+
             </ul>
         </div>
+        <!--<nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">WebSiteName</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Page 1</a></li>
+                    <li><a href="#">Page 2</a></li>
+                    <li><a href="#">Page 3</a></li>
+                </ul>
+            </div>
+        </nav>-->
     </div>
 </div>

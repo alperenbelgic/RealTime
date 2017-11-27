@@ -1,6 +1,26 @@
-<div class="container">
-   <h3><b>{{ stock.stockName }}</b></h3>
-    <h4>{{ stockPrice }}</h4>
+<div class="row stock-price">
+
+
+    <div class="col-md-4 product-name">{{ stock.stockName }}</div>
+    <div class="col-md-3 product-price">
+        <div class="order-button ">
+            <button type="button" class="btn btn-info">sell</button>
+        </div>
+        <div class="price">
+            {{ stockSellPrice | number : '1.2-2' }}
+        </div>
+    </div>
+    <div class="col-md-3 product-price">
+
+        <div class="order-button ">
+            <button type="button" class="btn btn-info">buy</button>
+
+        </div>
+        <div class="price"  >
+            {{ stockBuyPrice | number : '1.2-2' }}
+        </div>
+    </div>
+    <div class="col-md-2 price">{{ change | number : '1.2-2' }}%</div>
 </div>
 
 

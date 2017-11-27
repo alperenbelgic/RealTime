@@ -2,7 +2,7 @@
 
 namespace StockExchangeMachine
 {
-    public class Transaction
+    public class Transaction : Profilable
     {
         public Transaction()
         {

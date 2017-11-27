@@ -9,65 +9,22 @@ export class Transaction {
         private count: String,
         private price: String
     ) {
-
     }
 }
 
 
 @Component({
-    selector: 'pricelist',
-    templateUrl: './pricelist.component.html'
+    selector: 'product-list',
+    templateUrl: './productlist.component.html'
 })
-export class PricelistComponent implements OnInit, OnDestroy {
+export class ProductlistComponent implements OnInit, OnDestroy {
 
     public streamingStocks: Array<Stock>;
 
-    public transactions = new Array<Transaction>();
-    public transactions2 = new Array<Transaction>();
-
     constructor(
-        private ChannelService: ChannelService,
-        private ChannelService2: ChannelService
+        private ChannelService: ChannelService
     ) {
         console.log('PricelistComponent constructed');
-    }
-
-    public startStream() {
-
-        this.ChannelService.getStream("StreamTransactions", "a").streamPromise
-            .then((stream: any) => {
-                stream.subscribe({
-                    next: (t: any) => {
-                        console.log(t);
-                        this.transactions.unshift(new Transaction(t.seller, t.buyer, t.count, t.price));
-                    }
-                });
-
-            });
-
-        this.ChannelService2.getStream("StreamTransactions", "x").streamPromise
-            .then((stream: any) => {
-                stream.subscribe({
-                    next: (t: any) => {
-                        console.log(t);
-                        this.transactions2.unshift(new Transaction(t.seller, t.buyer, t.count, t.price));
-                    }
-                });
-
-            });
-    }
-
-    public stopStream() {
-
-        this.ChannelService.stopStream('');
-    }
-
-    add(): void {
-
-    }
-
-    remove(): void {
-
     }
 
     ngOnInit(): void {
